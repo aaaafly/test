@@ -45,15 +45,15 @@ def ma_score(month):
     jsondata = json.loads(data)
     values = jsondata['values']
 
-    out="《柚子麻將%s月積分》" % (month)
+    ma_out="《柚子麻將%s月積分》" % (month)
     i=1
 
     if not values:
-         out="not found"
+         ma_out="not found"
     else:
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
-            out+=('\n %2s |%3s |%5s' % (i,row[0], row[1]))
+            ma_out+=('\n %2s |%3s |%5s' % (i,row[0], row[1]))
             i+=1
     return ma_out
 
@@ -163,7 +163,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
     elif(get.find('柚子抽') >= 0):
-        score = ma_score(10)
+        score = ma_score(get[3:5])
         
         msg = TextSendMessage(score)
         
