@@ -36,24 +36,24 @@ handler = WebhookHandler(SECRET)
 
 #----------------my_function----------------#
 #柚子積分
-def ma_score():
+def ma_score(month):
     apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
-    getvalueurl='https://sheets.googleapis.com/v4/spreadsheets/1_J3nBaOmvBx9agkXByT-2sMv_vHkR74OHcArc6mluQw/values/A2:B?key=%s' % (apikey)
+    getvalueurl='https://sheets.googleapis.com/v4/spreadsheets/1_J3nBaOmvBx9agkXByT-2sMv_vHkR74OHcArc6mluQw/values/%s!A2:B?key=%s' % (month,apikey)
     res = requests.get(getvalueurl)
     data = res.content
 	
     jsondata = json.loads(data)
     values = jsondata['values']
 
-    ma_out="《柚子麻將10月積分》"
+    out="《柚子麻將%s月積分》" % (month)
     i=1
 
     if not values:
-         ma_out="not found"
+         out="not found"
     else:
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
-            ma_out += ('\n%2d |%3s |%5s' % (i,row[0], row[1]))
+            out+=('\n %2s |%3s |%5s' % (i,row[0], row[1]))
             i+=1
     return ma_out
 
@@ -162,8 +162,8 @@ def handle_message(event):
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
-    elif(get == '柚子抽'):
-        score = ma_score()
+    elif('柚子抽 ' in get):
+        score = ma_score(get[4:])
         
         msg = TextSendMessage(score)
         
