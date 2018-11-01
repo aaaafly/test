@@ -1,13 +1,13 @@
+
 import random
 import datetime
 
 #--------------google sheet api--------------#
 
-from __future__ import print_function
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
-
+import requests
+import json
+import re
+from bs4 import BeautifulSoup as bs
 
 #----------------line bot api----------------#
 
@@ -38,22 +38,13 @@ handler = WebhookHandler(SECRET)
 #----------------my_function----------------#
 #柚子積分
 def ma_score():
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
-    store = file.Storage('token.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('sheets', 'v4', http=creds.authorize(Http()))
-
-    # Call the Sheets API
-    SPREADSHEET_ID = '1_J3nBaOmvBx9agkXByT-2sMv_vHkR74OHcArc6mluQw'
-    RANGE_NAME = 'A2:B'
-    result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
-                                                range=RANGE_NAME).execute()
-    values = result.get('values', [])
+    apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
+    getvalueurl='https://sheets.googleapis.com/v4/spreadsheets/1_J3nBaOmvBx9agkXByT-2sMv_vHkR74OHcArc6mluQw/values/A2:B?key=%s' % (apikey)
+    res = requests.get(getvalueurl)
+    data = res.content
+	
+    jsondata = json.loads(data)
+    values = jsondata['values']
 
     out="《柚子麻將10月積分》\n"
     i=1
