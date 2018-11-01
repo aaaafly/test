@@ -162,7 +162,7 @@ def handle_message(event):
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
-    elif('柚子抽' in get):
+    elif(get.find('柚子抽') >= 0):
         score = ma_score(get[3:])
         
         msg = TextSendMessage(score)
