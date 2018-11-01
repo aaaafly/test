@@ -1,6 +1,15 @@
 import random
 import datetime
 
+#--------------google sheet api--------------#
+
+import requests
+import json
+import re
+from bs4 import BeautifulSoup as bs
+
+#----------------line bot api----------------#
+
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
 
@@ -17,13 +26,36 @@ from config import client_id, client_secret, album_id
 
 app = Flask(__name__)
 
+#----------------ACCESS_TOKEN----------------#
+
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 SECRET = os.environ.get('SECRET')
 
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-#--------------my_function--------------#
+#----------------my_function----------------#
+#柚子積分
+def ma_score():
+    apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
+    getvalueurl='https://sheets.googleapis.com/v4/spreadsheets/1_J3nBaOmvBx9agkXByT-2sMv_vHkR74OHcArc6mluQw/values/A2:B?key=%s' % (apikey)
+    res = requests.get(getvalueurl)
+    data = res.content
+	
+    jsondata = json.loads(data)
+    values = jsondata['values']
+
+    ma_out="《柚子麻將10月積分》"
+    i=1
+
+    if not values:
+         ma_out="not found"
+    else:
+        for row in values:
+            # Print columns A and E, which correspond to indices 0 and 4.
+            ma_out += ('\n%2d |%3s |%5s' % (i,row[0], row[1]))
+            i+=1
+    return ma_out
 
 #抽飯飯
 def choosewhattoeat():
@@ -129,7 +161,15 @@ def handle_message(event):
         
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)
-#------------------------------------------------------------------------------------------------------#        
+#------------------------------------------------------------------------------------------------------#
+    elif(get == '柚子抽'):
+        score = "測試"
+        
+        msg = TextSendMessage(score)
+        
+        #回復訊息msg
+        line_bot_api.reply_message(event.reply_token,msg)
+#------------------------------------------------------------------------------------------------------#
     elif(get == '妮妮抽'):
         client = ImgurClient(client_id, client_secret)
         images = client.get_album_images('nnfQKcW')
