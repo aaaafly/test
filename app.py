@@ -163,7 +163,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
     elif('柚子抽' in get):
-        score = ma_score(get[4:])
+        score = ma_score(get[3:])
         
         msg = TextSendMessage(score)
         
