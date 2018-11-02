@@ -59,59 +59,43 @@ def ma_score(month):
 
 #抽飯飯
 def choosewhattoeat():
-    time = ((datetime.datetime.now().hour)+8)%24
-
-    if(time >=10 and time <= 14):
-        
-        num = random.randint(1,10)           
     
-        if(num==1): 
-            out='瓦城玩躲貓貓'
-        elif(num==2):
-            out='麥當當找兔子'
-        elif(num==3):
-            out='大告'
-        elif(num==4):
-            out='大J'
-        elif(num==5):
-            out='告野烤人肉飯'
-        elif(num==6):
-            out='紅辣椒省起來'
-        elif(num==7):
-            out='八方'
-        elif(num==8):
-            out='拉亞'
-        elif(num==9):
-            out='宏爺'
-        elif(num==10):
-            out='黑店嘿嘿嘿'
-            
-    elif(time >14 and time <= 23):
+    time = ((datetime.datetime.now().hour)+8)%24
+    
+    apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
+    getvalueurl='https://sheets.googleapis.com/v4/spreadsheets/1QHptsX3e1chR917a_5s23upr28M3EUfe6x3fAY5BLDQ/values/A:C?key=%s' % (apikey)
+    res = requests.get(getvalueurl)
+    data = res.content
+	
+    jsondata = json.loads(data)
+    values = jsondata['values']
 
-        num = random.randint(1,8)
+    alltime_max  =int(values[0][2])
+    onlynoon_max =int(values[1][2])
 
-        if(num==1): 
-            out='瓦城玩躲貓貓'
-        elif(num==2):
-            out='麥當當找兔子'
-        elif(num==3):
-            out='大告'
-        elif(num==4):
-            out='大J'
-        elif(num==5):
-            out='告野烤人肉飯'
-        elif(num==6):
-            out='紅辣椒省起來'
-        elif(num==7):
-            out='八方'
-        elif(num==8):
-            out='黑店嘿嘿嘿'
+    if not values:
+        
+        out="not found"
     else:
+        
+        #AM 10:00 ~ PM 03:00
+        if(time > 9 and time <= 14):
+        
+            num = random.randint(1,alltime_max)
+            out = values[num][0]
 
-        out = "甲賽"
+        #PM 03:00 ~ AM 00:00    
+        elif(time > 14 and time <= 23):
 
-    return out
+            num = random.randint(1,onlynoon_max)
+            out = values[num][0]
 
+        #AM 00:00 ~ AM 10:00
+        else:
+
+            out = "甲賽"
+
+    return (out)
 
 #妮封面
 
