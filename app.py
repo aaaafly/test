@@ -105,7 +105,6 @@ Ni_ask_URL = images[0].link
 Ni_URL_1 = images[0].link
 Ni_URL_2 = images[1].link
 Ni_URL_3 = images[2].link
-Ni_URL_4 = images[3].link
 
 
 #--------------my_function--------------#
