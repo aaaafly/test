@@ -102,9 +102,11 @@ def choosewhattoeat():
 client = ImgurClient(client_id, client_secret)
 images = client.get_album_images('37qwmzq')
 Ni_ask_URL = images[0].link
-Ni_URL_1 = images[1].link
-Ni_URL_2 = images[2].link
-Ni_URL_3 = images[3].link
+Ni_URL_1 = images[0].link
+Ni_URL_2 = images[1].link
+Ni_URL_3 = images[2].link
+Ni_URL_4 = images[3].link
+
 
 #--------------my_function--------------#
 
@@ -146,6 +148,14 @@ def handle_message(event):
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
+    elif(get == '柚子抽'):
+        score = ma_score(datetime.datetime.now().month)
+        
+        msg = TextSendMessage(score)
+        
+        #回復訊息msg
+        line_bot_api.reply_message(event.reply_token,msg)
+#------------------------------------------------------------------------------------------------------#        
     elif(get.find('柚子抽') >= 0):
         score = ma_score(get[3:5])
         
@@ -188,8 +198,6 @@ def handle_message(event):
         # 回復訊息msg
         line_bot_api.reply_message(event.reply_token, msg)
 # ------------------------------------------------------------------------------------------------------#
-
-# ------------------------------------------------------------------------------------------------------#
     elif (get == '熠楷抽'):
         client = ImgurClient(client_id, client_secret)
         images = client.get_image('KtKrxU2')
@@ -230,7 +238,7 @@ def handle_message(event):
         # 回復訊息msg
         line_bot_api.reply_message(event.reply_token, msg)
  # ------------------------------------------------------------------------------------------------------#
-    elif(get == '妮問我答-簡單'):
+    elif(get == '兔題抽'):
         msg = TemplateSendMessage(
         alt_text='快去打開手機，玩妮問我答囉!',
         template=ButtonsTemplate(
@@ -240,7 +248,7 @@ def handle_message(event):
             actions=[
                 MessageTemplateAction(
                     label='不會流汗',
-                    text='正確答案!!兔子沒有汗腺，不會流汗。\n ◎你獲得新指令-熠楷抽'
+                    text='正確答案!!兔子沒有汗腺，不會流汗。'
                 ),
                 MessageTemplateAction(
                     label='對水分的需求比其他動物來的多',
@@ -260,43 +268,13 @@ def handle_message(event):
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
-    elif(get == '妮問我答-困難'):
-        msg = TemplateSendMessage(
-        alt_text='快去打開手機，玩妮問我答囉!',
-        template=ButtonsTemplate(
-            title='妮問我答-困難',
-            text='二進制數值1001.01等於下列何者十進制數值?',
-            thumbnail_image_url=Ni_ask_URL,
-            actions=[
-                MessageTemplateAction(
-                    label='9.25',
-                    text='正確解答 \n ◎你獲得新指令-阿樂抽'
-                ),
-                MessageTemplateAction(
-                    label='9.75',
-                    text='這是1001.11'
-                ),
-                MessageTemplateAction(
-                    label='13.25',
-                    text='這是1101.01'
-                ),
-                MessageTemplateAction(
-                    label='13.75',
-                    text='這是1101.11'
-                )
-            ]
-        )
-        )
-        #回復訊息msg
-        line_bot_api.reply_message(event.reply_token,msg)
-#------------------------------------------------------------------------------------------------------#
     elif(get == '妮妮會什麼?'):
         msg = TemplateSendMessage(
             alt_text='這裡看不到，顆顆',
             template=CarouselTemplate(
                 columns=[
                     CarouselColumn(
-                        thumbnail_image_url=Ni_URL_2,
+                        thumbnail_image_url=Ni_URL_0,
                         title='柚子積分',
                         text='11月積分更新中!!',
                         actions=[
@@ -349,25 +327,6 @@ def handle_message(event):
                             MessageTemplateAction(
                                 label='阿樂',
                                 text='阿樂抽'
-                            )
-                        ]
-                    ),
-                    CarouselColumn(
-                        thumbnail_image_url=Ni_URL_3,
-                        title='我要答題喔喔喔喔喔',
-                        text='題目沒更新',
-                        actions=[
-                            MessageTemplateAction(
-                                label='兔題',
-                                text='妮問我答-簡單'
-                            ),
-                            MessageTemplateAction(
-                                label=' ',
-                                text=' '
-                            ),
-                            MessageTemplateAction(
-                                label='計概一',
-                                text='妮問我答-困難'
                             )
                         ]
                     )
