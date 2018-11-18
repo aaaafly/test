@@ -309,8 +309,8 @@ def handle_message(event):
                                 text='柚子抽10'
                             ),
                             MessageTemplateAction(
-                                label='',
-                                text=''
+                                label=' ',
+                                text=' '
                             )
                         ]
                     ),
