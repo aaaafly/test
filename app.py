@@ -296,21 +296,40 @@ def handle_message(event):
             template=CarouselTemplate(
                 columns=[
                     CarouselColumn(
+                        thumbnail_image_url=Ni_URL_2,
+                        title='柚子積分',
+                        text='11月積分更新中!!',
+                        actions=[
+                            MessageTemplateAction(
+                                label='11月',
+                                text='柚子抽11'
+                            ),
+                            MessageTemplateAction(
+                                label='10月',
+                                text='柚子抽10'
+                            ),
+                            MessageTemplateAction(
+                                label='',
+                                text=''
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
                         thumbnail_image_url=Ni_URL_1,
-                        title='抽兩個噁男',
-                        text='這邊有兩個噁男，小心使用',
+                        title='抽一些可怕的東西',
+                        text='這邊可怕的東西，大家小心使用。',
                         actions=[
                             MessageTemplateAction(
                                 label='計概三',
                                 text='熠楷抽'
                             ),
                             MessageTemplateAction(
-                                label=' ',
-                                text=' '
-                            ),
-                            MessageTemplateAction(
                                 label='計概四',
                                 text='詠甯抽'
+                            ),
+                            MessageTemplateAction(
+                                label='離散數學',
+                                text='怎麼辦辦抽'
                             )
                         ]
                     ),
