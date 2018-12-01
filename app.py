@@ -47,23 +47,21 @@ def save_ig(input_id):
     target_url = 'https://saveig.com/zh-tw/?link='+input_id
     res = requests.get(target_url)
     soup = bs(res.text, 'html.parser')   
-    a_tag = soup.find_all("img",limit=4)
-    
+    a_tag = soup.find_all("img",limit=5)
     
     n=0
-
     flag=0
     
     for i in a_tag:
-        if(flag==1):
+        if(flag==3):
             text =i.get('alt')
             url  =i.get('src')
 
             toutput[n]+=text
             uoutput[n]+=url
             n=n+1
-            
-        flag=1
+        flag+=1
+	
 #柚子積分
 def ma_score(month):
     apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
