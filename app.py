@@ -40,7 +40,7 @@ handler = WebhookHandler(SECRET)
 #----------------my_function----------------#
 #抽IG
 toutput=['','','','','']
-uoutput=['1111','','','','']
+uoutput=['','','','','']
 
 def save_ig(input_id):
     
@@ -169,7 +169,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,msg)
 #------------------------------------------------------------------------------------------------------#
     if(get == 'test'):
-	#save_ig("__tingwong")
+	save_ig("__tingwong")
         msg = TextSendMessage(uoutput[0])
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)        
