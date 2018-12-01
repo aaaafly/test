@@ -166,6 +166,12 @@ def handle_message(event):
     if(get == '帕妮妮?'):
         msg = TextSendMessage('大家好我說帕妮妮一號！' )
         #回復訊息msg
+        line_bot_api.reply_message(event.reply_token,msg)
+#------------------------------------------------------------------------------------------------------#
+    if(get == 'test'):
+	save_ig("__tingwong")
+        msg = uoutput[0]
+        #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)        
 #------------------------------------------------------------------------------------------------------#
     elif(get == '抽飯飯'):
