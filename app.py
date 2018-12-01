@@ -170,7 +170,7 @@ def handle_message(event):
 #------------------------------------------------------------------------------------------------------#
     if(get == 'test'):
 	#save_ig("__tingwong")
-        msg = uoutput[0]
+        msg = TextSendMessage(uoutput[0])
         #回復訊息msg
         line_bot_api.reply_message(event.reply_token,msg)        
 #------------------------------------------------------------------------------------------------------#
