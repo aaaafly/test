@@ -7,6 +7,10 @@ import requests
 import json
 import re
 from bs4 import BeautifulSoup as bs
+#---------------------IG---------------------#
+
+import sys
+non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
 #----------------line bot api----------------#
 
@@ -35,6 +39,32 @@ line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
 #----------------my_function----------------#
+#抽IG
+toutput=['','','','','']
+uoutput=['','','','','']
+
+def save_ig(input_id):
+    
+    target_url = 'https://saveig.com/zh-tw/?link='+input_id
+    res = requests.get(target_url)
+    soup = bs(res.text, 'html.parser')   
+    a_tag = soup.find_all("img",limit=4)
+    
+    
+    n=0
+
+    flag=0
+    
+    for i in a_tag:
+        if(flag==1):
+            text =i.get('alt')
+            url  =i.get('src')
+
+            toutput[n]+=text
+            uoutput[n]+=url
+            n=n+1
+            
+        flag=1
 #柚子積分
 def ma_score(month):
     apikey='AIzaSyAzpWOZ2DM5t84gHbBdUttvKNuuhflOJ6E'
@@ -78,14 +108,14 @@ def choosewhattoeat():
         out="not found"
     else:
         
-        #AM 10:00 ~ PM 03:00
-        if(time > 9 and time <= 14):
+        #AM 10:00 ~ PM 02:00
+        if(time > 9 and time <= 13):
         
             num = random.randint(1,alltime_max)
             out = values[num][0]
 
-        #PM 03:00 ~ AM 00:00    
-        elif(time > 14 and time <= 23):
+        #PM 02:00 ~ AM 00:00    
+        elif(time > 13 and time <= 23):
 
             num = random.randint(1,onlynoon_max)
             out = values[num][0]
@@ -326,6 +356,77 @@ def handle_message(event):
                             MessageTemplateAction(
                                 label=' ',
                                 text=' '
+                            )
+                        ]
+                    )
+                ]
+            )
+        )
+
+        #回復訊息msg
+        line_bot_api.reply_message(event.reply_token,msg)
+#------------------------------------------------------------------------------------------------------#
+    elif('#save_ig' in get):
+        
+        input_id=get.split(" ",1)
+        save_ig(input_id[1])
+        
+        msg = TemplateSendMessage(
+            alt_text='這裡看不到，顆顆',
+            template=CarouselTemplate(
+                columns=[
+                    CarouselColumn(
+                        thumbnail_image_url=uoutput[0],
+                        title='這邊是'+input_id+'的IG',
+                        text=toutput[0],
+                        actions=[
+                            URITemplateAction(
+                                label='DOWNLOAD',
+                                uri=uoutput[0]
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=uoutput[1],
+                        title='這邊是'+input_id+'的IG',
+                        text=toutput[1],
+                        actions=[
+                            URITemplateAction(
+                                label='DOWNLOAD',
+                                uri=uoutput[1]
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=uoutput[2],
+                        title='這邊是'+input_id+'的IG',
+                        text=toutput[2],
+                        actions=[
+                            URITemplateAction(
+                                label='DOWNLOAD',
+                                uri=uoutput[2]
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=uoutput[3],
+                        title='這邊是'+input_id+'的IG',
+                        text=toutput[3],
+                        actions=[
+                            URITemplateAction(
+                                label='DOWNLOAD',
+                                uri=uoutput[3]
+                            )
+                        ]
+                    ),
+                    CarouselColumn(
+                        thumbnail_image_url=uoutput[4],
+                        title='這邊是'+input_id+'的IG',
+                        text=toutput[4],
+                        actions=[
+                            URITemplateAction(
+                                label='DOWNLOAD',
+                                uri=uoutput[4]
                             )
                         ]
                     )
