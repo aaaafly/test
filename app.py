@@ -40,10 +40,10 @@ handler = WebhookHandler(SECRET)
 #----------------my_function----------------#
 #抽IG
 toutput=['','','','','']
-uoutput=['111','','','','']
+uoutput=['','','','','']
 
 def save_ig(input_id):
-    
+	
     target_url = 'https://saveig.com/zh-tw/?link='+input_id
     res = requests.get(target_url)
     soup = bs(res.text, 'html.parser')   
@@ -57,8 +57,8 @@ def save_ig(input_id):
             text =i.get('alt')
             url  =i.get('src')
 
-            toutput[n]+=text
-            uoutput[n]+=url
+            toutput[n]+="text"
+            uoutput[n]+="url"
             n=n+1
         flag+=1
 	
