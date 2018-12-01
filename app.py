@@ -40,7 +40,7 @@ handler = WebhookHandler(SECRET)
 #----------------my_function----------------#
 #抽IG
 toutput=['','','','','']
-uoutput=['','','','','']
+uoutput=['111','','','','']
 
 def save_ig(input_id):
     
