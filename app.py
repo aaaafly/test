@@ -9,8 +9,7 @@ import re
 from bs4 import BeautifulSoup as bs
 #---------------------IG---------------------#
 
-import sys
-non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
+
 
 #----------------line bot api----------------#
 
