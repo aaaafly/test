@@ -50,7 +50,7 @@ def handle_message(event):
 
     print(profile.display_name)
     print("user_id =", user_id)
-    print(event.message.text\n\n)
+    print(event.message.text+"\n\n")
 
 
 @app.route('/')
