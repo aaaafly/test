@@ -46,8 +46,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     # get user id when reply
-    user_id = event.source.user_id
-    group_id = event.source.group_id
+    user_id = (str)event.source.user_id
+    group_id = (str)event.source.group_id
+    
     
     msg = "user_id =" + user_id + "\ngroup_id = " + group_id
 
