@@ -48,8 +48,10 @@ def handle_message(event):
     # get user id when reply
     user_id = event.source.user_id
     group_id = event.source.group_id
-    print("user_id =", user_id)
-    print("group_id = ", group_id)
+    
+    msg = "user_id =" + user_id + "\ngroup_id = " + group_id
 
+    line_bot_api.reply_message(event.reply_token,msg)
+    
 if __name__ == "__main__":
     app.run()
