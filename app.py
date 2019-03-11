@@ -50,7 +50,7 @@ def handle_message(event):
     group_id = event.source.group_id
     
     
-    msg = "user_id =" + (str)user_id + "\ngroup_id = " + (str)group_id
+    msg = "user_id =" + user_id + "\ngroup_id = " + group_id
 
     line_bot_api.reply_message(event.reply_token,msg)
     
