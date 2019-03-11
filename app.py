@@ -1,9 +1,7 @@
 
-
-#----------------line bot api----------------#
+import json
 
 from flask import Flask, request, abort
-from imgurpython import ImgurClient
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -11,13 +9,12 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import *
-
-import tempfile,os
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
 
 app = Flask(__name__)
 
-#----------------ACCESS_TOKEN----------------#
 
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
 SECRET = os.environ.get('SECRET')
@@ -32,6 +29,7 @@ def callback():
 
     # get request body as text
     body = request.get_data(as_text=True)
+
     app.logger.info("Request body: " + body)
 
     # handle webhook body
@@ -47,12 +45,15 @@ def callback():
 def handle_message(event):
     # get user id when reply
     user_id = event.source.user_id
-    group_id = event.source.group_id
-    
-    
-    msg = "user_id =" + user_id + "\ngroup_id = " + group_id
+    print("user_id =", user_id)
 
-    line_bot_api.reply_message(event.reply_token,msg)
-    
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
+
+@app.route('/')
+def homepage():
+    return 'Hello, World!'
+
 if __name__ == "__main__":
     app.run()
