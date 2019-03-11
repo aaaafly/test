@@ -45,15 +45,12 @@ def callback():
 def handle_message(event):
     # get user id when reply
     user_id = event.source.user_id
-    group_id = event.source.group_id
 
+    profile = line_bot_api.get_profile(user_id)
+
+    print(profile.display_name)
     print("user_id =", user_id)
-    print("group_id =", group_id)
 
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text))
 
 @app.route('/')
 def homepage():
